@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrar Registros</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Administrar Registros</h1>
+
+        <a href="/" class="administrar-link">⬅ Volver al Registro</a>
+        <div class="separator"></div>
+
+        {% if registros %}
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>DNI</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Dirección</th>
+                    <th>Teléfono</th>
+                    <th>Acción</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for persona in registros %}
+                <tr>
+                    <td>{{ persona[0] }}</td>
+                    <td>{{ persona[1] }}</td>
+                    <td>{{ persona[2] }}</td>
+                    <td>{{ persona[3] }}</td>
+                    <td>{{ persona[4] }}</td>
+                    <td>{{ persona[5] }}</td>
+                    <td>
+                        <form action="/eliminar/{{ persona[1] }}" method="post"
+                              onsubmit="return confirmarEliminar()">
+                            <button type="submit" style="background-color:#dc3545;">
+                                Eliminar
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p style="text-align:center; color:#888;">No hay registros disponibles.</p>
+        {% endif %}
+    </div>
+
+    <script>
+        function confirmarEliminar() {
+            return confirm("¿Estás seguro de que deseas eliminar este registro?");
+        }
+    </script>
+</body>
+</html>
